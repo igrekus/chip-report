@@ -1,16 +1,7 @@
 <template>
-  <q-layout view="lHh lpR lFf" class="WAL position-relative bg-grey-4">
+  <q-layout view="hHh lpR fFf">
 
-    <q-drawer v-model="leftDrawer" side="left" behavior="desktop" bordered>
-      <q-toolbar>
-        <q-btn round icon="add"/>
-      </q-toolbar>
-      <ul>
-        <li>table column</li>
-      </ul>
-    </q-drawer>
-
-    <q-page-container class="bg-grey-2">
+    <q-page-container>
       <router-view/>
     </q-page-container>
 
@@ -23,7 +14,9 @@ export default {
 
   data () {
     return {
-      leftDrawer: true
+      leftDrawer: true,
+      text: '',
+      dense: true
     }
   }
 }
