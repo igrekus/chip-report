@@ -26,8 +26,8 @@
               </q-item-section>
               <q-item-section side>
                 <div class="text-grey-8 q-gutter-xs">
-                  <q-btn class="gt-xs" size="12px" flat dense round icon="edit"/>
-                  <q-btn class="gt-xs" size="12px" flat dense round icon="delete"/>
+                  <q-btn class="gt-xs" size="12px" flat dense round icon="edit" @click="onEditColumn(col)"/>
+                  <q-btn class="gt-xs" size="12px" flat dense round icon="delete" @click="onDeleteColumn(col)"/>
                 </div>
               </q-item-section>
             </q-item>
