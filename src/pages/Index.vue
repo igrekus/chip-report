@@ -100,6 +100,9 @@ export default {
           5: 36
         }
       ]
+      onDeleteColumn (col) {
+        this.columns.splice(this.columns.indexOf(col), 1)
+      }
     }
   }
 }
