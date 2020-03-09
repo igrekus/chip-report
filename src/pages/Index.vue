@@ -13,7 +13,7 @@
                   <span class="text-grey-10">{{ col.label }}</span>
                 </q-item-label>
                 <q-item-label caption lines="1">
-                  {{ col.params }}
+                  {{ col.condition }}
                 </q-item-label>
                 <q-item-label lines="1" class="q-mt-xs">
                   {{ col.norms }}
@@ -48,7 +48,7 @@
           <template v-slot:header-cell="props">
             <q-th :props="props">
               {{ props.col.label }}<br/>
-              {{ props.col.params }}<br/>
+              {{ props.col.condition }}<br/>
               {{ props.col.norms }}
             </q-th>
           </template>
@@ -64,7 +64,7 @@ export default {
     return {
       leftDrawer: true,
       columns: [
-        { name: 1, label: '№ миксросхемы', norms: 'Норма', params: 'Параметры', field: 'name', align: 'left' },
+        { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' },
         {
           name: 1,
           label: 'F1, ГГц\nUп = 4,5В',
