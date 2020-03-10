@@ -20,9 +20,9 @@
                 </q-item-label>
               </q-item-section>
               <q-item-section side>
-                  <div class="col-sm">mid</div>
-                  <div class="col-sm">spread</div>
-                  <div class="col-sm">step</div>
+                  <div class="col-sm">среднее={{ col.mid }}</div>
+                  <div class="col-sm">разброс={{ col.spread }}</div>
+                  <div class="col-sm">шаг={{ col.step }}</div>
               </q-item-section>
               <q-item-section side>
                 <div class="text-grey-8 q-gutter-xs">
@@ -67,18 +67,67 @@ export default {
         { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' },
         {
           name: 1,
-          label: 'F1, ГГц\nUп = 4,5В',
+          label: 'F1, ГГц',
           required: true,
           align: 'left',
           field: row => row[0],
-          params: 'Uп = 4,5В',
-          norms: 'не более 1,9'
+          condition: 'Uп = 4,5В',
+          norms: 'не более 1,9',
+          mid: 1.5,
+          spread: 0.5,
+          step: 0.1
         },
-        { name: 2, label: 'f2, ГГЦ', field: row => row[1], align: 'center', params: 'Uп = 4.5 В', norms: 'не менее 12,3' },
-        { name: 3, label: 'D, дБ', field: row => row[2], params: 'Uп = 4.5 В', norms: 'не менее 51' },
-        { name: 4, label: 'Pвх мин, дБм', field: row => row[3], params: 'Uп = 4.5 В', norms: 'не более -41' },
-        { name: 5, label: 't1, нс', field: row => row[4], params: 'Uп = 4.5 В', norms: 'не более 25' },
-        { name: 6, label: 'I, мА', field: row => row[5], params: 'Uп = 5.5 В', norms: 'не более 100' }
+        {
+          name: 2,
+          label: 'f2, ГГЦ',
+          field: row => row[1],
+          align: 'center',
+          condition: 'Uп = 4.5 В',
+          norms: 'не менее 12,3',
+          mid: 2.5,
+          spread: 0.1,
+          step: 0.1
+        },
+        {
+          name: 3,
+          label: 'D, дБ',
+          field: row => row[2],
+          condition: 'Uп = 4.5 В',
+          norms: 'не менее 51',
+          mid: 1.5,
+          spread: 0.5,
+          step: 0.1
+        },
+        {
+          name: 4,
+          label: 'Pвх мин, дБм',
+          field: row => row[3],
+          condition: 'Uп = 4.5 В',
+          norms: 'не более -41',
+          mid: 1.5,
+          spread: 0.5,
+          step: 0.1
+        },
+        {
+          name: 5,
+          label: 't1, нс',
+          field: row => row[4],
+          condition: 'Uп = 4.5 В',
+          norms: 'не более 25',
+          mid: 1.5,
+          spread: 0.5,
+          step: 0.1
+        },
+        {
+          name: 6,
+          label: 'I, мА',
+          field: row => row[5],
+          condition: 'Uп = 5.5 В',
+          norms: 'не более 100',
+          mid: 1.5,
+          spread: 0.5,
+          step: 0.1
+        }
       ],
       data: [
         {
