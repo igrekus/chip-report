@@ -110,6 +110,7 @@ export default {
     return {
       leftDrawer: true,
       dlgEditColumn: false,
+      rows: 2,
       columnEditObj: {
         name: null,
         label: '',
@@ -117,6 +118,7 @@ export default {
         field: row => {},
         condition: '',
         norms: '',
+        colIndex: 0,
         mid: 0,
         spread: 0,
         step: 0
@@ -130,6 +132,7 @@ export default {
           field: row => row[0],
           condition: 'Uп = 4,5В',
           norms: 'не более 1,9',
+          colIndex: 0,
           mid: 1.5,
           spread: 0.5,
           step: 0.1
@@ -141,6 +144,7 @@ export default {
           align: 'center',
           condition: 'Uп = 4.5 В',
           norms: 'не менее 12,3',
+          colIndex: 1,
           mid: 2.5,
           spread: 0.1,
           step: 0.1
@@ -151,6 +155,7 @@ export default {
           field: row => row[2],
           condition: 'Uп = 4.5 В',
           norms: 'не менее 51',
+          colIndex: 2,
           mid: 1.5,
           spread: 0.5,
           step: 0.1
@@ -161,6 +166,7 @@ export default {
           field: row => row[3],
           condition: 'Uп = 4.5 В',
           norms: 'не более -41',
+          colIndex: 3,
           mid: 1.5,
           spread: 0.5,
           step: 0.1
@@ -171,6 +177,7 @@ export default {
           field: row => row[4],
           condition: 'Uп = 4.5 В',
           norms: 'не более 25',
+          colIndex: 4,
           mid: 1.5,
           spread: 0.5,
           step: 0.1
@@ -181,31 +188,28 @@ export default {
           field: row => row[5],
           condition: 'Uп = 5.5 В',
           norms: 'не более 100',
+          colIndex: 5,
           mid: 1.5,
           spread: 0.5,
           step: 0.1
         }
-      ],
-      data: [
-        {
-          name: 1,
-          0: 1.5,
-          1: 12.8,
-          2: 56.0,
-          3: -44,
-          4: 20,
-          5: 34
-        },
-        {
-          name: 2,
-          0: 1.6,
-          1: 12.9,
-          2: 57.0,
-          3: -47,
-          4: 23,
-          5: 36
-        }
       ]
+    }
+  },
+  computed: {
+    data () {
+      let result = []
+      for (let i = 0; i < this.rows; i++) {
+        let newRow = {}
+        this.columns.forEach(col => {
+          if (col.colIndex === null) {
+            return
+          }
+          newRow[col.colIndex] = this.generateValue(1)
+        })
+        result.push(newRow)
+      }
+      return result
     }
   },
   methods: {
