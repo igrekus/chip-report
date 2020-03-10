@@ -110,13 +110,22 @@ export default {
     return {
       leftDrawer: true,
       dlgEditColumn: false,
-      columnEditObj: null,
+      columnEditObj: {
+        name: null,
+        label: '',
+        align: 'left',
+        field: row => {},
+        condition: '',
+        norms: '',
+        mid: 0,
+        spread: 0,
+        step: 0
+      },
       columns: [
         { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' },
         {
           name: 1,
           label: 'F1, ГГц',
-          required: true,
           align: 'left',
           field: row => row[0],
           condition: 'Uп = 4,5В',
@@ -208,11 +217,16 @@ export default {
       this.columns.splice(this.columns.indexOf(col), 1)
     },
     onDlgAccept (event) {
+      this.dlgEditColumn = false
       let index = this.columns.findIndex(el => this.columnEditObj.name === el.name)
       if (index === -1) {
-        console.log('add new column')
+        this.addColumn()
         return
       }
+      this.editColumn(index)
+      console.log(this.columns)
+    },
+    editColumn (index) {
       let found = this.columns[index]
       found.label = this.columnEditObj.label
       found.condition = this.columnEditObj.condition
@@ -220,12 +234,10 @@ export default {
       found.mid = this.columnEditObj.mid
       found.spread = this.columnEditObj.spread
       found.step = this.columnEditObj.step
-      this.dlgEditColumn = false
-      console.log(this.columns)
+    },
+    addColumn () {
+      alert('add column')
     }
-  },
-  beforeMount () {
-    this.columnEditObj = this.columns[1]
   }
 }
 </script>
