@@ -205,7 +205,7 @@ export default {
           if (typeof col.colIndex === 'undefined') {
             return
           }
-          newRow[col.colIndex] = this.generateValue(1)
+          newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
         })
         result.push(newRow)
       }
@@ -267,8 +267,13 @@ export default {
       }
       this.columns.push(newColumn)
     },
-    generateValue (data) {
-      return 1
+    generateValue (mid, spread, step) {
+      console.log(mid, spread, step)
+      if (!mid || !spread || !step) { return 0 }
+      const min = mid - spread
+      const max = mid + spread
+      let res = Math.random() * (max - min) + max
+      return res.toFixed(2)
     }
   }
 }
