@@ -57,47 +57,41 @@
     </div>
 
     <q-dialog v-model="dlgEditColumn">
-      <q-card style="width: 600px" class="q-px-sm">
+      <q-card style="width: 500px" class="q-px-sm">
 
         <q-item dense>
-          <q-item-label header>Параметр:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.label" dense/>
+            <q-input v-model="columnEditObj.label" label="Параметр:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
-          <q-item-label header>Условие:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.condition" dense/>
+            <q-input v-model="columnEditObj.condition" label="Условие:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
-          <q-item-label header>Норма:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.norms" dense/>
+            <q-input v-model="columnEditObj.norms" label="Норма:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
-          <q-item-label header>Среднее:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.mid" dense/>
+            <q-input v-model="columnEditObj.mid" label="Среднее:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
-          <q-item-label header>Разброс:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.spread" dense/>
+            <q-input v-model="columnEditObj.spread" label="Разброс:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
-          <q-item-label header>Шаг:</q-item-label>
           <q-item-section>
-            <q-input v-model="columnEditObj.step" dense/>
+            <q-input v-model="columnEditObj.step" label="Шаг:" dense/>
           </q-item-section>
         </q-item>
       </q-card>
