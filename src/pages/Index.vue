@@ -55,6 +55,53 @@
         </q-table>
       </div>
     </div>
+
+    <q-dialog v-model="dlgEditColumn">
+      <q-card style="width: 600px" class="q-px-sm">
+
+        <q-item dense>
+          <q-item-label header>Параметр:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.label" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-label header>Условие:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.condition" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-label header>Норма:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.norms" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-label header>Среднее:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.mid" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-label header>Разброс:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.spread" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-label header>Шаг:</q-item-label>
+          <q-item-section>
+            <q-input v-model="columnEditObj.step" dense/>
+          </q-item-section>
+        </q-item>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -63,6 +110,8 @@ export default {
   data () {
     return {
       leftDrawer: true,
+      dlgEditColumn: false,
+      columnEditObj: null,
       columns: [
         { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' },
         {
@@ -148,11 +197,19 @@ export default {
           4: 23,
           5: 36
         }
-      ]
+      ],
+      onEditColumn (col) {
+        console.log(col.name, col.label)
+        this.dlgEditColumn = true
+        this.columnEditObj = { ...col }
+      },
       onDeleteColumn (col) {
         this.columns.splice(this.columns.indexOf(col), 1)
       }
     }
+  },
+  beforeMount () {
+    this.columnEditObj = this.columns[1]
   }
 }
 </script>
