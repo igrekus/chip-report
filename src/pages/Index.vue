@@ -202,7 +202,7 @@ export default {
       for (let i = 0; i < this.rows; i++) {
         let newRow = {}
         this.columns.forEach(col => {
-          if (col.colIndex === null) {
+          if (typeof col.colIndex === 'undefined') {
             return
           }
           newRow[col.colIndex] = this.generateValue(1)
