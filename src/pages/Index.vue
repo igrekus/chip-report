@@ -248,9 +248,9 @@ export default {
       found.label = this.columnEditObj.label
       found.condition = this.columnEditObj.condition
       found.norms = this.columnEditObj.norms
-      found.mid = this.columnEditObj.mid
-      found.spread = this.columnEditObj.spread
-      found.step = this.columnEditObj.step
+      found.mid = parseFloat(this.columnEditObj.mid)
+      found.spread = parseFloat(this.columnEditObj.spread)
+      found.step = parseFloat(this.columnEditObj.step)
     },
     addColumn () {
       const [lastItem] = this.columns.slice(-1)
@@ -260,9 +260,9 @@ export default {
         label: this.columnEditObj.label,
         condition: this.columnEditObj.condition,
         norms: this.columnEditObj.norms,
-        mid: this.columnEditObj.mid,
-        spread: this.columnEditObj.spread,
-        step: this.columnEditObj.step,
+        mid: parseFloat(this.columnEditObj.mid),
+        spread: parseFloat(this.columnEditObj.spread),
+        step: parseFloat(this.columnEditObj.step),
         colIndex: index,
         field: row => row[index]
       }
