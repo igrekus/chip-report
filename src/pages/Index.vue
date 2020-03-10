@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-3 q-pa-sm">
         <q-toolbar>
-          <q-btn round icon="add"/>
+          <q-btn round icon="add" @click="newColumn"/>
         </q-toolbar>
         <q-scroll-area style="height: 800px;">
           <q-list bordered>
@@ -224,7 +224,19 @@ export default {
         return
       }
       this.editColumn(index)
-      console.log(this.columns)
+    },
+    newColumn () {
+      this.columnEditObj = {
+        name: null,
+        label: '',
+        condition: '',
+        norms: '',
+        colIndex: 0,
+        mid: 0,
+        spread: 0,
+        step: 0
+      }
+      this.dlgEditColumn = true
     },
     editColumn (index) {
       let found = this.columns[index]
@@ -236,7 +248,23 @@ export default {
       found.step = this.columnEditObj.step
     },
     addColumn () {
-      alert('add column')
+      const [lastItem] = this.columns.slice(-1)
+      const [index] = [lastItem.name]
+      const newColumn = {
+        name: lastItem.name + 1,
+        label: this.columnEditObj.label,
+        condition: this.columnEditObj.condition,
+        norms: this.columnEditObj.norms,
+        mid: this.columnEditObj.mid,
+        spread: this.columnEditObj.spread,
+        step: this.columnEditObj.step,
+        colIndex: index,
+        field: row => row[index]
+      }
+      this.columns.push(newColumn)
+    },
+    generateValue (data) {
+      return 1
     }
   }
 }
