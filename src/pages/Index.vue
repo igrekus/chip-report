@@ -94,7 +94,12 @@
             <q-input v-model="columnEditObj.step" type="number" label="Шаг:" dense/>
           </q-item-section>
         </q-item>
+
+        <q-item>
+          <q-btn primary small color="primary" label="ОК" @click="onDlgAccept"/>
+        </q-item>
       </q-card>
+
     </q-dialog>
   </q-page>
 </template>
