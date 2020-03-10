@@ -79,19 +79,19 @@
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.mid" label="Среднее:" dense/>
+            <q-input v-model="columnEditObj.mid" type="number" label="Среднее:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.spread" label="Разброс:" dense/>
+            <q-input v-model="columnEditObj.spread" type="number" label="Разброс:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.step" label="Шаг:" dense/>
+            <q-input v-model="columnEditObj.step" type="number" label="Шаг:" dense/>
           </q-item-section>
         </q-item>
       </q-card>
