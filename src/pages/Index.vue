@@ -207,6 +207,7 @@ export default {
           }
           newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
         })
+        newRow['name'] = i + 1
         result.push(newRow)
       }
       return result
