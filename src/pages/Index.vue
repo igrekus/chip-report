@@ -191,15 +191,32 @@ export default {
           4: 23,
           5: 36
         }
-      ],
-      onEditColumn (col) {
-        console.log(col.name, col.label)
-        this.dlgEditColumn = true
-        this.columnEditObj = { ...col }
-      },
-      onDeleteColumn (col) {
-        this.columns.splice(this.columns.indexOf(col), 1)
+      ]
+    }
+  },
+  methods: {
+    onEditColumn (col) {
+      this.dlgEditColumn = true
+      this.columnEditObj = { ...col }
+    },
+    onDeleteColumn (col) {
+      this.columns.splice(this.columns.indexOf(col), 1)
+    },
+    onDlgAccept (event) {
+      let index = this.columns.findIndex(el => this.columnEditObj.name === el.name)
+      if (index === -1) {
+        console.log('add new column')
+        return
       }
+      let found = this.columns[index]
+      found.label = this.columnEditObj.label
+      found.condition = this.columnEditObj.condition
+      found.norms = this.columnEditObj.norms
+      found.mid = this.columnEditObj.mid
+      found.spread = this.columnEditObj.spread
+      found.step = this.columnEditObj.step
+      this.dlgEditColumn = false
+      console.log(this.columns)
     }
   },
   beforeMount () {
