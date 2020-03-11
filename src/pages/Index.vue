@@ -117,6 +117,8 @@
 </template>
 
 <script>
+import XLSX from 'xlsx'
+
 export default {
   data () {
     return {
@@ -226,6 +228,15 @@ export default {
     },
     exportExcel () {
       console.log('export')
+      const filename = 'out'
+      const data = [
+        ['label1', 'label2'],
+        ['data1', 'data2']
+      ]
+      const book = XLSX.utils.book_new()
+      const sheet = XLSX.utils.aoa_to_sheet(data)
+      XLSX.utils.book_append_sheet(book, sheet, 'sheet1')
+      XLSX.writeFile(book, `${filename}.xlsx`)
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
