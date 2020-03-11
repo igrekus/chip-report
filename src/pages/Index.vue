@@ -47,6 +47,15 @@
           :pagination="pagination"
           hide-bottom
         >
+          <template v-slot:top>
+            <q-item>
+              <q-btn dense round small icon="add" @click="addRow"/>&nbsp;&nbsp;&nbsp;
+              <q-btn dense round small icon="delete" @click="removeRow"/>
+            </q-item>
+            <q-item>
+              <q-input v-model="measureSetHeader" dense label="Заголовок:"></q-input>
+            </q-item>
+          </template>
           <template v-slot:header-cell="props">
             <q-th :props="props">
               {{ props.col.label }}<br/>
@@ -113,6 +122,7 @@ export default {
       leftDrawer: true,
       dlgEditColumn: false,
       rows: 2,
+      measureSetHeader: 'A958',
       pagination: {
         rowsPerPage: 0
       },
@@ -204,6 +214,14 @@ export default {
         field: row => row[index]
       }
       this.columns.push(newColumn)
+    },
+    addRow () {
+      this.rows++
+    },
+    removeRow () {
+      if (this.rows !== 0) {
+        this.rows--
+      }
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
