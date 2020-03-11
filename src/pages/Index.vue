@@ -242,7 +242,6 @@ export default {
       let randint = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
       }
-      console.log(mid, spread, step)
       if (!mid || !spread || !step) { return 0 }
       const min = mid - spread
       const max = mid + spread
