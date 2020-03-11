@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-3 q-pa-sm">
         <q-toolbar>
-          <q-btn round icon="add" @click="newColumn"/>
+          <q-btn round dense icon="add" @click="newColumn"/>&nbsp;&nbsp;&nbsp;
         </q-toolbar>
         <q-scroll-area style="height: 800px;">
           <q-list bordered>
