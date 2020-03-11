@@ -201,13 +201,17 @@ export default {
       this.columns.push(newColumn)
     },
     generateValue (mid, spread, step) {
+      let randint = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
       console.log(mid, spread, step)
       if (!mid || !spread || !step) { return 0 }
       const min = mid - spread
       const max = mid + spread
-      let res = Math.random() * (max - min) + max
-      return res.toFixed(2)
+      let res = randint(0, (max - min) / step) * step + min
+      return res.toFixed(1)
     }
+  },
   mounted () {
     [
       {
