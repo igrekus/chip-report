@@ -124,75 +124,7 @@ export default {
         step: 0
       },
       columns: [
-        { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' },
-        {
-          name: 1,
-          label: 'F1, ГГц',
-          align: 'left',
-          field: row => row[0],
-          condition: 'Uп = 4,5В',
-          norms: 'не более 1,9',
-          colIndex: 0,
-          mid: 1.5,
-          spread: 0.5,
-          step: 0.1
-        },
-        {
-          name: 2,
-          label: 'f2, ГГЦ',
-          field: row => row[1],
-          align: 'center',
-          condition: 'Uп = 4.5 В',
-          norms: 'не менее 12,3',
-          colIndex: 1,
-          mid: 2.5,
-          spread: 0.1,
-          step: 0.1
-        },
-        {
-          name: 3,
-          label: 'D, дБ',
-          field: row => row[2],
-          condition: 'Uп = 4.5 В',
-          norms: 'не менее 51',
-          colIndex: 2,
-          mid: 1.5,
-          spread: 0.5,
-          step: 0.1
-        },
-        {
-          name: 4,
-          label: 'Pвх мин, дБм',
-          field: row => row[3],
-          condition: 'Uп = 4.5 В',
-          norms: 'не более -41',
-          colIndex: 3,
-          mid: 1.5,
-          spread: 0.5,
-          step: 0.1
-        },
-        {
-          name: 5,
-          label: 't1, нс',
-          field: row => row[4],
-          condition: 'Uп = 4.5 В',
-          norms: 'не более 25',
-          colIndex: 4,
-          mid: 1.5,
-          spread: 0.5,
-          step: 0.1
-        },
-        {
-          name: 6,
-          label: 'I, мА',
-          field: row => row[5],
-          condition: 'Uп = 5.5 В',
-          norms: 'не более 100',
-          colIndex: 5,
-          mid: 1.5,
-          spread: 0.5,
-          step: 0.1
-        }
+        { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' }
       ]
     }
   },
@@ -276,6 +208,79 @@ export default {
       let res = Math.random() * (max - min) + max
       return res.toFixed(2)
     }
+  mounted () {
+    [
+      {
+        name: 1,
+        label: 'F1, ГГц',
+        align: 'left',
+        field: row => row[0],
+        condition: 'Uп = 4,5В',
+        norms: 'не более 1,9',
+        colIndex: 0,
+        mid: 1.5,
+        spread: 0.5,
+        step: 0.1
+      },
+      {
+        name: 2,
+        label: 'f2, ГГЦ',
+        field: row => row[1],
+        align: 'center',
+        condition: 'Uп = 4.5 В',
+        norms: 'не менее 12,3',
+        colIndex: 1,
+        mid: 2.5,
+        spread: 0.1,
+        step: 0.1
+      },
+      {
+        name: 3,
+        label: 'D, дБ',
+        field: row => row[2],
+        condition: 'Uп = 4.5 В',
+        norms: 'не менее 51',
+        colIndex: 2,
+        mid: 1.5,
+        spread: 0.5,
+        step: 0.1
+      },
+      {
+        name: 4,
+        label: 'Pвх мин, дБм',
+        field: row => row[3],
+        condition: 'Uп = 4.5 В',
+        norms: 'не более -41',
+        colIndex: 3,
+        mid: 1.5,
+        spread: 0.5,
+        step: 0.1
+      },
+      {
+        name: 5,
+        label: 't1, нс',
+        field: row => row[4],
+        condition: 'Uп = 4.5 В',
+        norms: 'не более 25',
+        colIndex: 4,
+        mid: 1.5,
+        spread: 0.5,
+        step: 0.1
+      },
+      {
+        name: 6,
+        label: 'I, мА',
+        field: row => row[5],
+        condition: 'Uп = 5.5 В',
+        norms: 'не более 100',
+        colIndex: 5,
+        mid: 1.5,
+        spread: 0.5,
+        step: 0.1
+      }
+    ].forEach(el => {
+      this.columns.push(el)
+    })
   }
 }
 </script>
