@@ -140,7 +140,7 @@ export default {
         step: 0
       },
       columns: [
-        { name: 0, label: '№ миксросхемы', norms: '', condition: '', field: 'name', align: 'left' }
+        { name: 0, label: '№ изделия', norms: '', condition: '', field: 'name', align: 'left' }
       ]
     }
   },
