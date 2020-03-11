@@ -4,6 +4,7 @@
       <div class="col-lg-3 q-pa-sm">
         <q-toolbar>
           <q-btn round dense icon="add" @click="newColumn"/>&nbsp;&nbsp;&nbsp;
+          <q-btn round dense icon="save" @click="exportExcel"></q-btn>
         </q-toolbar>
         <q-scroll-area style="height: 800px;">
           <q-list bordered>
@@ -222,6 +223,9 @@ export default {
       if (this.rows !== 0) {
         this.rows--
       }
+    },
+    exportExcel () {
+      console.log('export')
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
