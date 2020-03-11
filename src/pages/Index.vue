@@ -227,12 +227,40 @@ export default {
       }
     },
     exportExcel () {
-      console.log('export')
       const filename = 'out'
-      const data = [
-        ['label1', 'label2'],
-        ['data1', 'data2']
-      ]
+
+      const data = []
+      let headerRow = []
+      let indexes = []
+
+      this.columns.forEach(col => {
+        headerRow.push(`${col.label}\n${col.condition}`)
+        indexes.push(col.colIndex)
+      })
+      data.push(headerRow)
+
+      let normsRow = []
+      this.columns.forEach(col => {
+        normsRow.push(col.norms)
+      })
+      data.push(normsRow)
+
+      let colNumberRow = []
+      for (let i = 0; i < headerRow.length; i++) {
+        colNumberRow.push(i + 1)
+      }
+      data.push(colNumberRow)
+
+      data.push([this.measureSetHeader])
+
+      this.data.forEach(row => {
+        let newRow = []
+        indexes.forEach(i => {
+          newRow.push(row[i])
+        })
+        data.push(newRow)
+      })
+
       const book = XLSX.utils.book_new()
       const sheet = XLSX.utils.aoa_to_sheet(data)
       XLSX.utils.book_append_sheet(book, sheet, 'sheet1')
