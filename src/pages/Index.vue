@@ -44,6 +44,8 @@
           :data="data"
           :columns="columns"
           row-key="name"
+          :pagination="pagination"
+          hide-bottom
         >
           <template v-slot:header-cell="props">
             <q-th :props="props">
@@ -111,6 +113,9 @@ export default {
       leftDrawer: true,
       dlgEditColumn: false,
       rows: 2,
+      pagination: {
+        rowsPerPage: 0
+      },
       columnEditObj: {
         name: null,
         label: '',
