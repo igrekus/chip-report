@@ -50,8 +50,7 @@
         >
           <template v-slot:top>
             <q-item>
-              <q-btn dense round small icon="add" @click="addRow"/>&nbsp;&nbsp;&nbsp;
-              <q-btn dense round small icon="delete" @click="removeRow"/>
+              <q-input v-model="rows" type="number" dense label="Количество строк"/>&nbsp;&nbsp;&nbsp;
             </q-item>
             <q-item>
               <q-input v-model="measureSetHeader" dense label="Заголовок:"></q-input>
@@ -218,14 +217,6 @@ export default {
       }
       this.columns.push(newColumn)
     },
-    addRow () {
-      this.rows++
-    },
-    removeRow () {
-      if (this.rows !== 0) {
-        this.rows--
-      }
-    },
     exportExcel () {
       const filename = 'out'
 
@@ -275,6 +266,9 @@ export default {
       const max = mid + spread
       let res = randint(0, (max - min) / step) * step + min
       return res.toFixed(1)
+    },
+    addTable () {
+      console.log('add table')
     }
   },
   mounted () {
