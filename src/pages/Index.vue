@@ -39,31 +39,37 @@
         </q-scroll-area>
       </div>
       <div class="col-lg-9 q-pa-sm">
-        <q-table
-          title="Отчёт"
-          dense
-          :data="data"
-          :columns="columns"
-          row-key="name"
-          :pagination="pagination"
-          hide-bottom
-        >
-          <template v-slot:top>
-            <q-item>
-              <q-input v-model="rows" type="number" dense label="Количество строк"/>&nbsp;&nbsp;&nbsp;
-            </q-item>
-            <q-item>
-              <q-input v-model="measureSetHeader" dense label="Заголовок:"></q-input>
-            </q-item>
-          </template>
-          <template v-slot:header-cell="props">
-            <q-th :props="props">
-              {{ props.col.label }}<br/>
-              {{ props.col.condition }}<br/>
-              {{ props.col.norms }}
-            </q-th>
-          </template>
-        </q-table>
+        <q-toolbar>
+          <q-btn round dense icon="add" @click="addTable"/>&nbsp;&nbsp;&nbsp;
+          <q-btn round dense icon="delete" @click="delTable"/>&nbsp;&nbsp;&nbsp;
+        </q-toolbar>
+        <div v-for="table in tables" v-bind:key="table.id" class="q-pb-sm">
+          <q-table
+            title="Отчёт"
+            dense
+            :data="table.data"
+            :columns="columns"
+            row-key="name"
+            :pagination="pagination"
+            hide-bottom
+          >
+            <template v-slot:top>
+              <q-item>
+                <q-input v-model.number="table.rows" type="number" dense label="Количество строк" @input="onRowNumChanged(table.id)"/>&nbsp;&nbsp;&nbsp;
+              </q-item>
+              <q-item>
+                <q-input v-model="table.header" dense label="Заголовок:"></q-input>
+              </q-item>
+            </template>
+            <template v-slot:header-cell="props">
+              <q-th :props="props">
+                {{ props.col.label }}<br/>
+                {{ props.col.condition }}<br/>
+                {{ props.col.norms }}
+              </q-th>
+            </template>
+          </q-table>
+        </div>
       </div>
     </div>
 
@@ -123,8 +129,6 @@ export default {
     return {
       leftDrawer: true,
       dlgEditColumn: false,
-      rows: 2,
-      measureSetHeader: 'A958',
       pagination: {
         rowsPerPage: 0
       },
@@ -142,24 +146,8 @@ export default {
       },
       columns: [
         { name: 0, label: '№ изделия', norms: 'Норма', condition: '', field: 'name', align: 'left', colIndex: 'name' }
-      ]
-    }
-  },
-  computed: {
-    data () {
-      let result = []
-      for (let i = 0; i < this.rows; i++) {
-        let newRow = {}
-        this.columns.forEach(col => {
-          if (typeof col.colIndex === 'undefined') {
-            return
-          }
-          newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
-        })
-        newRow['name'] = i + 1
-        result.push(newRow)
-      }
-      return result
+      ],
+      tables: []
     }
   },
   methods: {
@@ -267,8 +255,36 @@ export default {
       let res = randint(0, (max - min) / step) * step + min
       return res.toFixed(1)
     },
+    onRowNumChanged (tableId) {
+      let table = this.tables[tableId]
+      let rows = table.rows
+      let result = []
+      for (let i = 0; i < rows; i++) {
+        let newRow = {}
+        this.columns.forEach(col => {
+          if (typeof col.colIndex === 'undefined') {
+            return
+          }
+          newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
+        })
+        newRow['name'] = i + 1
+        result.push(newRow)
+      }
+      table.data = result
+    },
     addTable () {
-      console.log('add table')
+      let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
+      this.tables.push({
+        id: newId,
+        rows: 0,
+        header: '',
+        data: []
+      })
+    },
+    delTable () {
+      if (this.tables.length) {
+        this.tables.pop()
+      }
     }
   },
   mounted () {
