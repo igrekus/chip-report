@@ -257,7 +257,7 @@ export default {
     },
     onRowNumChanged (tableId) {
       let table = this.tables[tableId]
-      let rows = table.rows
+      let rows = table.rows < 0 ? 0 : table.rows
       let result = []
       for (let i = 0; i < rows; i++) {
         let newRow = {}
@@ -271,6 +271,7 @@ export default {
         result.push(newRow)
       }
       table.data = result
+      table.rows = rows
     },
     addTable () {
       let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
