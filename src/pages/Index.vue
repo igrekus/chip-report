@@ -84,7 +84,7 @@
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.condition" label="Условие:" dense/>
+            <q-input filled autogrow v-model="columnEditObj.condition" label="Условие:" dense/>
           </q-item-section>
         </q-item>
 
