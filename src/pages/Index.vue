@@ -96,19 +96,19 @@
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.mid" type="number" label="Среднее:" dense/>
+            <q-input v-model.number="columnEditObj.mid" type="number" label="Среднее:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.spread" type="number" label="Разброс:" dense/>
+            <q-input v-model.number="columnEditObj.spread" type="number" label="Разброс:" dense/>
           </q-item-section>
         </q-item>
 
         <q-item dense>
           <q-item-section>
-            <q-input v-model="columnEditObj.step" type="number" label="Шаг:" dense/>
+            <q-input v-model.number="columnEditObj.step" type="number" label="Шаг:" dense/>
           </q-item-section>
         </q-item>
 
@@ -185,9 +185,9 @@ export default {
       found.label = this.columnEditObj.label
       found.condition = this.columnEditObj.condition
       found.norms = this.columnEditObj.norms
-      found.mid = parseFloat(this.columnEditObj.mid)
-      found.spread = parseFloat(this.columnEditObj.spread)
-      found.step = parseFloat(this.columnEditObj.step)
+      found.mid = this.columnEditObj.mid
+      found.spread = this.columnEditObj.spread
+      found.step = this.columnEditObj.step
     },
     addColumn () {
       const [lastItem] = this.columns.slice(-1)
@@ -197,9 +197,9 @@ export default {
         label: this.columnEditObj.label,
         condition: this.columnEditObj.condition,
         norms: this.columnEditObj.norms,
-        mid: parseFloat(this.columnEditObj.mid),
-        spread: parseFloat(this.columnEditObj.spread),
-        step: parseFloat(this.columnEditObj.step),
+        mid: this.columnEditObj.mid,
+        spread: this.columnEditObj.spread,
+        step: this.columnEditObj.step,
         colIndex: index,
         field: row => row[index]
       }
