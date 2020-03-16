@@ -181,13 +181,13 @@ export default {
       this.dlgEditColumn = true
     },
     editColumn (index) {
-      let found = this.columns[index]
-      found.label = this.columnEditObj.label
-      found.condition = this.columnEditObj.condition
-      found.norms = this.columnEditObj.norms
-      found.mid = this.columnEditObj.mid
-      found.spread = this.columnEditObj.spread
-      found.step = this.columnEditObj.step
+      let editedColumn = this.columns[index]
+      editedColumn.label = this.columnEditObj.label
+      editedColumn.condition = this.columnEditObj.condition
+      editedColumn.norms = this.columnEditObj.norms
+      editedColumn.mid = this.columnEditObj.mid
+      editedColumn.spread = this.columnEditObj.spread
+      editedColumn.step = this.columnEditObj.step
     },
     addColumn () {
       const [lastItem] = this.columns.slice(-1)
