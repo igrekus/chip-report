@@ -157,6 +157,8 @@ export default {
     },
     onDeleteColumn (col) {
       this.columns.splice(this.columns.indexOf(col), 1)
+
+      this.generateTables()
     },
     onDlgAccept (event) {
       this.dlgEditColumn = false
@@ -188,6 +190,8 @@ export default {
       editedColumn.mid = this.columnEditObj.mid
       editedColumn.spread = this.columnEditObj.spread
       editedColumn.step = this.columnEditObj.step
+
+      this.generateTables()
     },
     addColumn () {
       const [lastItem] = this.columns.slice(-1)
@@ -204,6 +208,8 @@ export default {
         field: row => row[index]
       }
       this.columns.push(newColumn)
+
+      this.generateTables()
     },
     exportExcel () {
       const filename = 'out'
@@ -256,6 +262,14 @@ export default {
       return res.toFixed(1)
     },
     onRowNumChanged (tableId) {
+      this.generateTableValues(tableId)
+    },
+    generateTables () {
+      this.tables.forEach(t => {
+        this.generateTableValues(t.id)
+      })
+    },
+    generateTableValues (tableId) {
       let table = this.tables[tableId]
       let rows = table.rows < 0 ? 0 : table.rows
       let result = []
