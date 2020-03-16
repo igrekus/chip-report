@@ -284,16 +284,30 @@ export default {
       for (let i = 0; i < headerRow.length; i++) {
         colNumberRow.push(i + 1)
       }
-      data.push(colNumberRow)
 
-      data.push([this.measureSetHeader])
+      this.tables.forEach(table => {
+        let newTable = []
 
-      this.data.forEach(row => {
-        let newRow = []
+        let header = []
         indexes.forEach(i => {
-          newRow.push(row[i])
+          header.push(null)
         })
-        data.push(newRow)
+        header[0] = table.header
+
+        newTable.push(header)
+        newTable.push(colNumberRow)
+
+        table.data.forEach(row => {
+          let newRow = []
+          indexes.forEach(i => {
+            newRow.push(parseFloat(row[i]))
+          })
+          newTable.push(newRow)
+        })
+
+        newTable.forEach(row => {
+          data.push(row)
+        })
       })
 
       const book = XLSX.utils.book_new()
