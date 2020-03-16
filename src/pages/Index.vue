@@ -277,7 +277,7 @@ export default {
       let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
       this.tables.push({
         id: newId,
-        rows: 0,
+        rows: null,
         header: '',
         data: []
       })
