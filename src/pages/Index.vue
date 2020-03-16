@@ -211,46 +211,6 @@ export default {
 
       this.generateTables()
     },
-    exportExcel () {
-      const filename = 'out'
-
-      const data = []
-      let headerRow = []
-      let indexes = []
-
-      this.columns.forEach(col => {
-        headerRow.push(`${col.label}\n${col.condition}`)
-        indexes.push(col.colIndex)
-      })
-      data.push(headerRow)
-
-      let normsRow = []
-      this.columns.forEach(col => {
-        normsRow.push(col.norms)
-      })
-      data.push(normsRow)
-
-      let colNumberRow = []
-      for (let i = 0; i < headerRow.length; i++) {
-        colNumberRow.push(i + 1)
-      }
-      data.push(colNumberRow)
-
-      data.push([this.measureSetHeader])
-
-      this.data.forEach(row => {
-        let newRow = []
-        indexes.forEach(i => {
-          newRow.push(row[i])
-        })
-        data.push(newRow)
-      })
-
-      const book = XLSX.utils.book_new()
-      const sheet = XLSX.utils.aoa_to_sheet(data)
-      XLSX.utils.book_append_sheet(book, sheet, 'sheet1')
-      XLSX.writeFile(book, `${filename}.xlsx`)
-    },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
@@ -300,6 +260,46 @@ export default {
       if (this.tables.length) {
         this.tables.pop()
       }
+    },
+    exportExcel () {
+      const filename = 'out'
+
+      const data = []
+      let headerRow = []
+      let indexes = []
+
+      this.columns.forEach(col => {
+        headerRow.push(`${col.label}\n${col.condition}`)
+        indexes.push(col.colIndex)
+      })
+      data.push(headerRow)
+
+      let normsRow = []
+      this.columns.forEach(col => {
+        normsRow.push(col.norms)
+      })
+      data.push(normsRow)
+
+      let colNumberRow = []
+      for (let i = 0; i < headerRow.length; i++) {
+        colNumberRow.push(i + 1)
+      }
+      data.push(colNumberRow)
+
+      data.push([this.measureSetHeader])
+
+      this.data.forEach(row => {
+        let newRow = []
+        indexes.forEach(i => {
+          newRow.push(row[i])
+        })
+        data.push(newRow)
+      })
+
+      const book = XLSX.utils.book_new()
+      const sheet = XLSX.utils.aoa_to_sheet(data)
+      XLSX.utils.book_append_sheet(book, sheet, 'sheet1')
+      XLSX.writeFile(book, `${filename}.xlsx`)
     }
   },
   mounted () {
@@ -375,6 +375,7 @@ export default {
     ].forEach(el => {
       this.columns.push(el)
     })
+    this.addTable()
   }
 }
 </script>
