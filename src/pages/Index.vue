@@ -122,8 +122,6 @@
 </template>
 
 <script>
-import XLSX from 'xlsx'
-
 export default {
   data () {
     return {
@@ -261,9 +259,7 @@ export default {
         this.tables.pop()
       }
     },
-    exportExcel () {
-      const filename = 'out'
-
+    async exportExcel () {
       const data = []
       let headerRow = []
       let indexes = []
@@ -310,10 +306,25 @@ export default {
         })
       })
 
-      const book = XLSX.utils.book_new()
-      const sheet = XLSX.utils.aoa_to_sheet(data)
-      XLSX.utils.book_append_sheet(book, sheet, 'sheet1')
-      XLSX.writeFile(book, `${filename}.xlsx`)
+      const rawResponse = await fetch('http://localhost:5000/api', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data)
+      })
+
+      let d = await rawResponse.body.getReader().read()
+      let dt = d.value
+
+      const url = window.URL.createObjectURL(new Blob([dt]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'out.xlsx')
+      document.body.appendChild(link)
+      link.click()
     }
   },
   mounted () {
