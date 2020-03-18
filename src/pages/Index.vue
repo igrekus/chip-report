@@ -233,13 +233,13 @@ export default {
       let result = []
       for (let i = 0; i < rows; i++) {
         let newRow = {}
-        newRow['name'] = i + 1
         this.columns.forEach(col => {
           if (typeof col.colIndex === 'undefined') {
             return
           }
           newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
         })
+        newRow['name'] = i + 1
         result.push(newRow)
       }
       table.data = result
