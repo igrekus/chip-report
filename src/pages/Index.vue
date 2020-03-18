@@ -260,50 +260,24 @@ export default {
       }
     },
     async exportExcel () {
-      const data = []
-      let headerRow = []
-      let indexes = []
-
+      let cols = []
       this.columns.forEach(col => {
-        headerRow.push(`${col.label}\n${col.condition}`)
-        indexes.push(col.colIndex)
+        let colData = {
+          label: col.label,
+          condition: col.condition,
+          norms: col.norms,
+          index: col.colIndex
+        }
+        cols.push(colData)
       })
-      data.push(headerRow)
 
-      let normsRow = []
-      this.columns.forEach(col => {
-        normsRow.push(col.norms)
-      })
-      data.push(normsRow)
-
-      let colNumberRow = []
-      for (let i = 0; i < headerRow.length; i++) {
-        colNumberRow.push(i + 1)
-      }
-
+      let tables = []
       this.tables.forEach(table => {
-        let newTable = []
-
-        let header = []
-        indexes.forEach(i => {
-          header.push(null)
-        })
-        header[0] = table.header
-
-        newTable.push(header)
-        newTable.push(colNumberRow)
-
-        table.data.forEach(row => {
-          let newRow = []
-          indexes.forEach(i => {
-            newRow.push(parseFloat(row[i]))
-          })
-          newTable.push(newRow)
-        })
-
-        newTable.forEach(row => {
-          data.push(row)
-        })
+        let tableData = {
+          header: table.header,
+          data: table.data
+        }
+        tables.push(tableData)
       })
 
       const rawResponse = await fetch('http://localhost:5000/api', {
@@ -313,7 +287,10 @@ export default {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          cols: cols,
+          tables: tables
+        })
       })
 
       let d = await rawResponse.body.getReader().read()
@@ -334,7 +311,7 @@ export default {
         label: 'F1, ГГц',
         align: 'left',
         field: row => row[0],
-        condition: 'Uп = 4,5В',
+        condition: 'Uп = 4,5В\nsecond condition',
         norms: 'не более 1,9',
         colIndex: 0,
         mid: 1.5,
