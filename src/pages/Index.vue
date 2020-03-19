@@ -134,26 +134,26 @@ export default {
             {
               name: 1,
               label: 'F1, ГГц',
-              align: 'right',
               field: row => row[0],
               condition: 'Uп = 4,5В\nsecond condition',
               norms: 'не более 1,9',
               index: 0,
               mid: 1.5,
               spread: 0.5,
-              step: 0.1
+              step: 0.1,
+              align: 'center'
             },
             {
               name: 2,
               label: 'f2, ГГЦ',
               field: row => row[1],
-              align: 'right',
               condition: 'Uп = 4.5 В',
               norms: 'не менее 12,3',
               index: 1,
               mid: 2.5,
               spread: 0.1,
-              step: 0.1
+              step: 0.1,
+              align: 'center'
             }
           ],
           data: [
@@ -174,7 +174,8 @@ export default {
               index: 0,
               mid: 1.5,
               spread: 0.5,
-              step: 0.1
+              step: 0.1,
+              align: 'center'
             },
             {
               name: 6,
@@ -185,7 +186,8 @@ export default {
               index: 1,
               mid: 1.5,
               spread: 0.5,
-              step: 0.1
+              step: 0.1,
+              align: 'center'
             }
           ],
           data: [
