@@ -16,7 +16,7 @@
           <q-input v-model="table.header" dense label="Заголовок:"></q-input>
         </q-item>
         <q-item>
-          <q-btn @click="addColumn(table.id)" round dense icon="add">
+          <q-btn @click="onAddColumnClicked(table.id)" round dense icon="add">
             <q-tooltip :delay="300" content-style="font-size: 12px">Добавить колонку к таблице</q-tooltip>
           </q-btn>
         </q-item>
@@ -32,7 +32,7 @@
         </q-item>
       </template>
       <template v-slot:header-cell="props">
-        <q-th @click="editColumn(table.id, props.col.name)" :props="props">
+        <q-th @click="onEditColumnClicked(props.col.name)" :props="props">
           {{ props.col.label }}<br/>
           {{ props.col.condition }}<br/>
           {{ props.col.norms }}<br/>
@@ -121,7 +121,7 @@ export default {
     deleteTable (tableId) {
       console.log('delete', tableId)
     },
-    addColumn (tableId) {
+    onAddColumnClicked (tableId) {
       console.log('add column to', tableId)
       this.columnEditObject = {
         name: null,
@@ -137,7 +137,7 @@ export default {
       }
       this.columnEditDialog = true
     },
-    editColumn (tableId, colId) {
+    onEditColumnClicked (colId) {
       let colToEdit = this.table.columns.find(col => {
         return col.name === colId
       })
@@ -156,10 +156,21 @@ export default {
       this.columnEditDialog = true
     },
     onDlgAccept () {
-      console.log('dlg accept')
-      let colToEdit = this.table.columns.find(col => {
-        return col.name === this.columnEditObject.name
-      })
+      let index = this.table.columns.findIndex(el => this.columnEditObject.name === el.name)
+      if (index === -1) {
+        this.addColumn(this.table.id)
+        return
+      }
+
+      this.editColumn(index)
+
+      this.columnEditDialog = false
+    },
+    addColumn (tableId) {
+      console.log('run add column to', tableId)
+    },
+    editColumn (colIndex) {
+      let colToEdit = this.table.columns[colIndex]
 
       colToEdit.name = this.columnEditObject.name
       colToEdit.label = this.columnEditObject.label
@@ -172,8 +183,6 @@ export default {
       colToEdit.index = this.columnEditObject.index
       colToEdit.field = this.columnEditObject.field
       colToEdit.align = this.columnEditObject.align
-
-      this.columnEditDialog = false
     }
   }
 }
