@@ -4,7 +4,6 @@
       <div class="col-lg-3 q-pa-sm">
         <q-toolbar>
           <q-btn round dense icon="add" @click="newColumn"/>&nbsp;&nbsp;&nbsp;
-          <q-btn round dense icon="save" @click="exportExcel"></q-btn>
         </q-toolbar>
         <q-scroll-area style="height: 800px;">
           <q-list bordered>
@@ -40,8 +39,13 @@
       </div>
       <div class="col-lg-9 q-pa-sm">
         <q-toolbar>
-          <q-btn round dense icon="add" @click="addTable"/>&nbsp;&nbsp;&nbsp;
-          <q-btn round dense icon="file_copy" @click="copyTable"/>&nbsp;&nbsp;&nbsp;
+          <q-btn @click="addTable" round dense icon="add">
+            <q-tooltip :delay="300" content-style="font-size: 12px">Добавить таблицу</q-tooltip>
+          </q-btn>
+          &nbsp;&nbsp;&nbsp;
+          <q-btn round dense icon="save" @click="exportExcel">
+            <q-tooltip :delay="300" content-style="font-size: 12px">Сохранить в Excel</q-tooltip>
+          </q-btn>
         </q-toolbar>
         <report-table v-for="tab in refTables" :key="tab.id" :table="tab" />
       </div>
