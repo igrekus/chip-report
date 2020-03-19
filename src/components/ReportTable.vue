@@ -156,6 +156,7 @@ export default {
       this.columnEditDialog = true
     },
     onDlgAccept () {
+      this.columnEditDialog = false
       let index = this.table.columns.findIndex(el => this.columnEditObject.name === el.name)
       if (index === -1) {
         this.addColumn(this.table.id)
@@ -163,8 +164,6 @@ export default {
       }
 
       this.editColumn(index)
-
-      this.columnEditDialog = false
     },
     addColumn (tableId) {
       console.log('run add column to', tableId)
