@@ -16,14 +16,23 @@
           <q-input v-model="table.header" dense label="Заголовок:"></q-input>
         </q-item>
         <q-item>
-          <q-btn round dense icon="file_copy" />
+          <q-btn @click="addColumn(table.id)" round dense icon="add">
+            <q-tooltip :delay="300" content-style="font-size: 12px">Добавить колонку к таблице</q-tooltip>
+          </q-btn>
+        </q-item>
+        <q-item>
+          <q-btn @click="copyTable(table.id)" round dense icon="file_copy">
+            <q-tooltip :delay="300" content-style="font-size: 12px">Добавить копию таблицы</q-tooltip>
+          </q-btn>
         </q-item>
         <q-item class="absolute-right">
-          <q-btn round dense icon="delete" />
+          <q-btn @click="deleteTable(table.id)" round dense icon="delete">
+            <q-tooltip :delay="300" content-style="font-size: 12px">Удалить таблицу</q-tooltip>
+          </q-btn>
         </q-item>
       </template>
       <template v-slot:header-cell="props">
-        <q-th :props="props">
+        <q-th @click="editColumn(table.id, props.col.name)" :props="props" class="q-hoverable">
           {{ props.col.label }}<br/>
           {{ props.col.condition }}<br/>
           {{ props.col.norms }}
@@ -43,6 +52,18 @@ export default {
   methods: {
     onRowNumChanged (tableId) {
       console.log(tableId)
+    },
+    copyTable (tableId) {
+      console.log('copy', tableId)
+    },
+    deleteTable (tableId) {
+      console.log('delete', tableId)
+    },
+    addColumn (tableId) {
+      console.log('add column to', tableId)
+    },
+    editColumn (tableId, colId) {
+      console.log('edit column', tableId, colId)
     }
   }
 }
