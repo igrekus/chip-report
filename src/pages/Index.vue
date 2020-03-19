@@ -41,35 +41,9 @@
       <div class="col-lg-9 q-pa-sm">
         <q-toolbar>
           <q-btn round dense icon="add" @click="addTable"/>&nbsp;&nbsp;&nbsp;
-          <q-btn round dense icon="delete" @click="delTable"/>&nbsp;&nbsp;&nbsp;
+          <q-btn round dense icon="file_copy" @click="copyTable"/>&nbsp;&nbsp;&nbsp;
         </q-toolbar>
-        <div v-for="table in tables" v-bind:key="table.id" class="q-pb-sm">
-          <q-table
-            title="Отчёт"
-            dense
-            :data="table.data"
-            :columns="columns"
-            row-key="name"
-            :pagination="pagination"
-            hide-bottom
-          >
-            <template v-slot:top>
-              <q-item>
-                <q-input v-model.number="table.rows" type="number" dense label="Количество строк" @input="onRowNumChanged(table.id)"/>&nbsp;&nbsp;&nbsp;
-              </q-item>
-              <q-item>
-                <q-input v-model="table.header" dense label="Заголовок:"></q-input>
-              </q-item>
-            </template>
-            <template v-slot:header-cell="props">
-              <q-th :props="props">
-                {{ props.col.label }}<br/>
-                {{ props.col.condition }}<br/>
-                {{ props.col.norms }}
-              </q-th>
-            </template>
-          </q-table>
-        </div>
+        <report-table v-for="tab in refTables" :key="tab.id" :table="tab" />
       </div>
     </div>
 
@@ -122,6 +96,8 @@
 </template>
 
 <script>
+import ReportTable from '../components/ReportTable.vue'
+
 export default {
   data () {
     return {
@@ -145,7 +121,75 @@ export default {
       columns: [
         { name: 0, label: '№ изделия', norms: 'Норма', condition: '', field: 'name', align: 'left', colIndex: 'name' }
       ],
-      tables: []
+      tables: [],
+      refTables: [
+        {
+          id: 1,
+          rows: null,
+          columns: [
+            {
+              name: 1,
+              label: 'F1, ГГц',
+              align: 'right',
+              field: row => row[0],
+              condition: 'Uп = 4,5В\nsecond condition',
+              norms: 'не более 1,9',
+              index: 0,
+              mid: 1.5,
+              spread: 0.5,
+              step: 0.1
+            },
+            {
+              name: 2,
+              label: 'f2, ГГЦ',
+              field: row => row[1],
+              align: 'right',
+              condition: 'Uп = 4.5 В',
+              norms: 'не менее 12,3',
+              index: 1,
+              mid: 2.5,
+              spread: 0.1,
+              step: 0.1
+            }
+          ],
+          data: [
+            [1, 2],
+            [1, 2]
+          ]
+        },
+        {
+          id: 2,
+          rows: null,
+          columns: [
+            {
+              name: 5,
+              label: 't1, нс',
+              field: row => row[0],
+              condition: 'Uп = 4.5 В',
+              norms: 'не более 25',
+              index: 0,
+              mid: 1.5,
+              spread: 0.5,
+              step: 0.1
+            },
+            {
+              name: 6,
+              label: 'I, мА',
+              field: row => row[1],
+              condition: 'Uп = 5.5 В',
+              norms: 'не более 100',
+              index: 1,
+              mid: 1.5,
+              spread: 0.5,
+              step: 0.1
+            }
+          ],
+          data: [
+            [3, 4],
+            [3, 4]
+          ]
+        }
+      ]
     }
   },
   methods: {
@@ -246,18 +290,17 @@ export default {
       table.rows = rows
     },
     addTable () {
-      let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
-      this.tables.push({
-        id: newId,
-        rows: null,
-        header: '',
-        data: []
-      })
+      console.log('add table')
+      // let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
+      // this.tables.push({
+      //   id: newId,
+      //   rows: null,
+      //   header: '',
+      //   data: []
+      // })
     },
-    delTable () {
-      if (this.tables.length) {
-        this.tables.pop()
-      }
+    copyTable () {
+      console.log('copy table')
     },
     async exportExcel () {
       let cols = []
@@ -378,6 +421,9 @@ export default {
       this.columns.push(el)
     })
     this.addTable()
+  },
+  components: {
+    ReportTable
   }
 }
 </script>
