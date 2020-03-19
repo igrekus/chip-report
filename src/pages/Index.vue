@@ -157,8 +157,8 @@ export default {
             }
           ],
           data: [
-            [1, 2],
-            [1, 2]
+            [1, 2, 3],
+            [1, 2, 3]
           ]
         },
         {
@@ -166,7 +166,7 @@ export default {
           rows: null,
           columns: [
             {
-              name: 5,
+              name: 1,
               label: 't1, нс',
               field: row => row[0],
               condition: 'Uп = 4.5 В',
@@ -178,7 +178,7 @@ export default {
               align: 'center'
             },
             {
-              name: 6,
+              name: 2,
               label: 'I, мА',
               field: row => row[1],
               condition: 'Uп = 5.5 В',
@@ -191,8 +191,8 @@ export default {
             }
           ],
           data: [
-            [3, 4],
-            [3, 4]
+            [3, 4, 5],
+            [3, 4, 5]
           ]
         }
       ]
