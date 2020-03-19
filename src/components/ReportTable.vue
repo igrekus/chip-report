@@ -167,6 +167,28 @@ export default {
     },
     addColumn (tableId) {
       console.log('run add column to', tableId)
+      console.log(this.table.columns)
+
+      let newColumn = {
+        label: this.columnEditObject.label,
+        condition: this.columnEditObject.condition,
+        norms: this.columnEditObject.norms,
+        mid: this.columnEditObject.mid,
+        spread: this.columnEditObject.spread,
+        step: this.columnEditObject.step,
+        align: this.columnEditObject.align,
+        name: null,
+        index: this.columnEditObject.index,
+        field: this.columnEditObject.field
+      }
+
+      const [lastItem] = this.table.columns.slice(-1)
+      const [index] = [lastItem.name]
+      newColumn.name = lastItem.name + 1
+      newColumn.index = index
+      newColumn.field = row => row[index]
+
+      this.table.columns.push(newColumn)
     },
     editColumn (colIndex) {
       let colToEdit = this.table.columns[colIndex]
