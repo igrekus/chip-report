@@ -32,13 +32,61 @@
         </q-item>
       </template>
       <template v-slot:header-cell="props">
-        <q-th @click="editColumn(table.id, props.col.name)" :props="props" class="q-hoverable">
+        <q-th @click="editColumn(table.id, props.col.name)" :props="props">
           {{ props.col.label }}<br/>
           {{ props.col.condition }}<br/>
-          {{ props.col.norms }}
+          {{ props.col.norms }}<br/>
+          ср={{ props.col.mid }}&nbsp;&nbsp;&nbsp;разбр={{ props.col.spread }}&nbsp;&nbsp;&nbsp;шаг={{ props.col.step }}
         </q-th>
       </template>
     </q-table>
+
+    <q-dialog v-model="columnEditDialog">
+      <q-card style="width: 500px" class="q-px-sm">
+
+        <q-item dense>
+          <q-item-section>
+            <q-input v-model="columnEditObject.label" label="Параметр:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-section>
+            <q-input filled autogrow v-model="columnEditObject.condition" label="Условие:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-section>
+            <q-input v-model="columnEditObject.norms" label="Норма:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-section>
+            <q-input v-model.number="columnEditObject.mid" type="number" label="Среднее:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-section>
+            <q-input v-model.number="columnEditObject.spread" type="number" label="Разброс:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item dense>
+          <q-item-section>
+            <q-input v-model.number="columnEditObject.step" type="number" label="Шаг:" dense/>
+          </q-item-section>
+        </q-item>
+
+        <q-item>
+          <q-btn primary small color="primary" label="ОК" @click="onDlgAccept"/>
+        </q-item>
+      </q-card>
+
+    </q-dialog>
+
   </div>
 </template>
 
@@ -47,7 +95,21 @@ export default {
   name: 'report-table',
   props: ['table'],
   data () {
-    return {}
+    return {
+      columnEditDialog: false,
+      columnEditObject: {
+        name: null,
+        label: '',
+        align: 'center',
+        field: null,
+        condition: '',
+        norms: '',
+        index: 0,
+        mid: 0,
+        spread: 0,
+        step: 0
+      }
+    }
   },
   methods: {
     onRowNumChanged (tableId) {
@@ -61,9 +123,41 @@ export default {
     },
     addColumn (tableId) {
       console.log('add column to', tableId)
+      this.columnEditObject = {
+        name: null,
+        label: '',
+        align: 'center',
+        field: null,
+        condition: '',
+        norms: '',
+        index: 0,
+        mid: 0,
+        spread: 0,
+        step: 0
+      }
+      this.columnEditDialog = true
     },
     editColumn (tableId, colId) {
-      console.log('edit column', tableId, colId)
+      let colToEdit = this.table.columns.find(col => {
+        return col.name === colId
+      })
+      this.columnEditObject.name = colToEdit.name
+      this.columnEditObject.label = colToEdit.label
+      this.columnEditObject.condition = colToEdit.condition
+      this.columnEditObject.norms = colToEdit.norms
+      this.columnEditObject.mid = colToEdit.mid
+      this.columnEditObject.spread = colToEdit.spread
+      this.columnEditObject.step = colToEdit.step
+
+      this.columnEditDialog = true
+      // let a = {
+      //   field: null,
+      //   index: 0,
+      // }
+    },
+    onDlgAccept () {
+      console.log('dlg accept')
+      this.columnEditDialog = false
     }
   }
 }
