@@ -149,14 +149,30 @@ export default {
       this.columnEditObject.spread = colToEdit.spread
       this.columnEditObject.step = colToEdit.step
 
+      this.columnEditObject.index = colToEdit.index
+      this.columnEditObject.field = colToEdit.field
+      this.columnEditObject.align = colToEdit.align
+
       this.columnEditDialog = true
-      // let a = {
-      //   field: null,
-      //   index: 0,
-      // }
     },
     onDlgAccept () {
       console.log('dlg accept')
+      let colToEdit = this.table.columns.find(col => {
+        return col.name === this.columnEditObject.name
+      })
+
+      colToEdit.name = this.columnEditObject.name
+      colToEdit.label = this.columnEditObject.label
+      colToEdit.condition = this.columnEditObject.condition
+      colToEdit.norms = this.columnEditObject.norms
+      colToEdit.mid = this.columnEditObject.mid
+      colToEdit.spread = this.columnEditObject.spread
+      colToEdit.step = this.columnEditObject.step
+
+      colToEdit.index = this.columnEditObject.index
+      colToEdit.field = this.columnEditObject.field
+      colToEdit.align = this.columnEditObject.align
+
       this.columnEditDialog = false
     }
   }
