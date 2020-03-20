@@ -166,7 +166,6 @@ export default {
       this.editColumn(index)
     },
     addColumn (tableId) {
-      console.log('run add column to', tableId)
       console.log(this.table.columns)
 
       let newColumn = {
