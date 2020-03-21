@@ -122,7 +122,6 @@ export default {
       console.log('delete', tableId)
     },
     onAddColumnClicked (tableId) {
-      console.log('add column to', tableId)
       this.columnEditObject = {
         name: null,
         label: '',
