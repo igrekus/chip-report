@@ -16,7 +16,7 @@
           <q-input v-model="table.header" dense label="Заголовок:"></q-input>
         </q-item>
         <q-item>
-          <q-btn @click="onAddColumnClicked(table.id)" round dense icon="add">
+          <q-btn @click="onAddColumnClicked" round dense icon="add">
             <q-tooltip :delay="300" content-style="font-size: 12px">Добавить колонку к таблице</q-tooltip>
           </q-btn>
         </q-item>
@@ -121,7 +121,7 @@ export default {
     deleteTable (tableId) {
       console.log('delete', tableId)
     },
-    onAddColumnClicked (tableId) {
+    onAddColumnClicked () {
       this.columnEditObject = {
         name: null,
         label: '',
@@ -158,13 +158,13 @@ export default {
       this.columnEditDialog = false
       let index = this.table.columns.findIndex(el => this.columnEditObject.name === el.name)
       if (index === -1) {
-        this.addColumn(this.table.id)
+        this.addColumn()
         return
       }
 
       this.editColumn(index)
     },
-    addColumn (tableId) {
+    addColumn () {
       console.log(this.table.columns)
 
       let newColumn = {
