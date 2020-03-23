@@ -165,8 +165,6 @@ export default {
       this.editColumn(index)
     },
     addColumn () {
-      console.log(this.table.columns)
-
       let newColumn = {
         label: this.columnEditObject.label,
         condition: this.columnEditObject.condition,
