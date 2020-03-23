@@ -10,7 +10,7 @@
       <template v-slot:top>
         <q-item>
           <q-input v-model.number="table.rows" type="number" dense label="Количество строк"
-                   @input="onRowNumChanged(table.id)"/>&nbsp;&nbsp;&nbsp;
+                   @input="onRowNumChanged(table.id)"></q-input>
         </q-item>
         <q-item>
           <q-input v-model="table.header" dense label="Заголовок:"></q-input>
