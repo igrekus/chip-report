@@ -178,7 +178,14 @@ export default {
         field: this.columnEditObject.field
       }
 
-      const [lastItem] = this.table.columns.slice(-1)
+      let [lastItem] = this.table.columns.slice(-1)
+
+      if (!lastItem) {
+        lastItem = {
+          name: 0
+        }
+      }
+
       const [index] = [lastItem.name]
       newColumn.name = lastItem.name + 1
       newColumn.index = index
