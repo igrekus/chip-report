@@ -10,7 +10,9 @@
             <q-tooltip :delay="300" content-style="font-size: 12px">Сохранить в Excel</q-tooltip>
           </q-btn>
         </q-toolbar>
-        <report-table v-for="tab in refTables" :key="tab.id" :table="tab" @ontabledelete="onTableDelete" />
+        <report-table v-for="tab in refTables" :key="tab.id" :table="tab"
+                      @ontabledelete="onTableDelete"
+                      @ontablecopy="onTableCopy"/>
       </div>
     </div>
   </q-page>
@@ -100,6 +102,9 @@ export default {
     onTableDelete (tableId) {
       let index = this.refTables.findIndex(tab => tab.id === tableId)
       this.refTables.splice(index, 1)
+    },
+    onTableCopy (tableId) {
+      console.log('copy', tableId)
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {

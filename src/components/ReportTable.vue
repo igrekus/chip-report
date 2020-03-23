@@ -116,7 +116,7 @@ export default {
       console.log(tableId)
     },
     copyTable () {
-      console.log('copy', tableId)
+      this.$emit('ontablecopy', this.table.id)
     },
     deleteTable () {
       this.$emit('ontabledelete', this.table.id)
