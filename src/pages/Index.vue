@@ -104,7 +104,42 @@ export default {
       this.refTables.splice(index, 1)
     },
     onTableCopy (tableId) {
-      console.log('copy', tableId)
+      let tableToCopy = this.refTables.find(tab => tab.id === tableId)
+
+      let columns = []
+      tableToCopy.columns.forEach(col => {
+        let newCol = {
+          label: col.label,
+          condition: col.condition,
+          norms: col.norms,
+          mid: col.mid,
+          spread: col.spread,
+          step: col.step,
+          align: col.align,
+          index: col.index,
+          field: col.field,
+          name: col.name
+        }
+        columns.push(newCol)
+      })
+
+      let newTable = JSON.parse(JSON.stringify({
+        id: tableToCopy.id,
+        rows: tableToCopy.rows,
+        header: tableToCopy.header,
+        columns: columns,
+        data: []
+      }))
+
+      let [lastTable] = this.refTables.slice(-1)
+      if (!lastTable) {
+        lastTable = {
+          id: 1
+        }
+      }
+
+      newTable.id = lastTable.id + 1
+      this.refTables.push(newTable)
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
