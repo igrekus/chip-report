@@ -26,7 +26,7 @@
           </q-btn>
         </q-item>
         <q-item class="absolute-right">
-          <q-btn @click="deleteTable(table.id)" round dense icon="delete">
+          <q-btn @click="deleteTable" round dense icon="delete">
             <q-tooltip :delay="300" content-style="font-size: 12px">Удалить таблицу</q-tooltip>
           </q-btn>
         </q-item>
@@ -118,8 +118,8 @@ export default {
     copyTable (tableId) {
       console.log('copy', tableId)
     },
-    deleteTable (tableId) {
-      console.log('delete', tableId)
+    deleteTable () {
+      console.log('delete', this.table.id)
     },
     onAddColumnClicked () {
       this.columnEditObject = {
