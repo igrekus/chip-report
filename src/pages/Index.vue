@@ -200,7 +200,8 @@ export default {
   },
   methods: {
     onTableDelete (tableId) {
-      console.log('index: delete table', tableId)
+      let index = this.refTables.findIndex(tab => tab.id === tableId)
+      this.refTables.splice(index, 1)
     },
     onEditColumn (col) {
       this.dlgEditColumn = true
