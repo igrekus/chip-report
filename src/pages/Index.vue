@@ -135,14 +135,14 @@ export default {
       table.rows = rows
     },
     addTable () {
-      console.log('add table')
-      // let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
-      // this.tables.push({
-      //   id: newId,
-      //   rows: null,
-      //   header: '',
-      //   data: []
-      // })
+      let newId = this.refTables.length ? this.refTables[this.refTables.length - 1].id + 1 : 0
+      this.refTables.push({
+        id: newId,
+        rows: null,
+        header: '',
+        columns: [],
+        data: []
+      })
     },
     copyTable () {
       console.log('copy table')
