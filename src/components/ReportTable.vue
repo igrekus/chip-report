@@ -21,7 +21,7 @@
           </q-btn>
         </q-item>
         <q-item>
-          <q-btn @click="copyTable(table.id)" round dense icon="file_copy">
+          <q-btn @click="copyTable()" round dense icon="file_copy">
             <q-tooltip :delay="300" content-style="font-size: 12px">Добавить копию таблицы</q-tooltip>
           </q-btn>
         </q-item>
@@ -115,7 +115,7 @@ export default {
     onRowNumChanged (tableId) {
       console.log(tableId)
     },
-    copyTable (tableId) {
+    copyTable () {
       console.log('copy', tableId)
     },
     deleteTable () {
