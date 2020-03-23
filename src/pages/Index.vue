@@ -26,6 +26,7 @@ export default {
         {
           id: 1,
           rows: null,
+          header: 'A380',
           columns: [
             {
               name: 1,
@@ -60,6 +61,7 @@ export default {
         {
           id: 2,
           rows: null,
+          header: 'A381',
           columns: [
             {
               name: 1,
