@@ -47,7 +47,7 @@
             <q-tooltip :delay="300" content-style="font-size: 12px">Сохранить в Excel</q-tooltip>
           </q-btn>
         </q-toolbar>
-        <report-table v-for="tab in refTables" :key="tab.id" :table="tab" />
+        <report-table v-for="tab in refTables" :key="tab.id" :table="tab" @ontabledelete="onTableDelete" />
       </div>
     </div>
 
@@ -199,6 +199,9 @@ export default {
     }
   },
   methods: {
+    onTableDelete (tableId) {
+      console.log('index: delete table', tableId)
+    },
     onEditColumn (col) {
       this.dlgEditColumn = true
       this.columnEditObj = { ...col }

@@ -119,7 +119,7 @@ export default {
       console.log('copy', tableId)
     },
     deleteTable () {
-      console.log('delete', this.table.id)
+      this.$emit('ontabledelete', this.table.id)
     },
     onAddColumnClicked () {
       this.columnEditObject = {
