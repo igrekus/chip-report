@@ -145,9 +145,6 @@ export default {
         data: []
       })
     },
-    copyTable () {
-      console.log('copy table')
-    },
     async exportExcel () {
       let cols = []
       this.columns.forEach(col => {
