@@ -135,39 +135,6 @@ export default {
       newTable.id = lastTable.id + 1
       this.tables.push(newTable)
     },
-    generateValue (mid, spread, step) {
-      let randint = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1) + min)
-      }
-      if (!mid || !spread || !step) { return 0 }
-      const min = mid - spread
-      const max = mid + spread
-      let res = randint(0, (max - min) / step) * step + min
-      return res.toFixed(1)
-    },
-    generateTables () {
-      this.tables.forEach(t => {
-        this.generateTableValues(t.id)
-      })
-    },
-    generateTableValues (tableId) {
-      let table = this.tables[tableId]
-      let rows = table.rows < 0 ? 0 : table.rows
-      let result = []
-      for (let i = 0; i < rows; i++) {
-        let newRow = {}
-        this.columns.forEach(col => {
-          if (typeof col.colIndex === 'undefined') {
-            return
-          }
-          newRow[col.colIndex] = this.generateValue(col.mid, col.spread, col.step)
-        })
-        newRow['name'] = i + 1
-        result.push(newRow)
-      }
-      table.data = result
-      table.rows = rows
-    },
     addTable () {
       let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
       this.tables.push({
