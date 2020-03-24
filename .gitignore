@@ -42,3 +42,9 @@ build
 # Misc
 tmp
 
+/server/js/
+/server/css/
+/server/*.html
+/server/fonts/
+/server/statics/
+
