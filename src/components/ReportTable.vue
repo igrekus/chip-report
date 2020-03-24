@@ -6,6 +6,7 @@
       :columns="table.columns"
       row-key="name"
       hide-bottom
+      :pagination="pagination"
     >
       <template v-slot:top>
         <q-item>
@@ -97,6 +98,9 @@ export default {
   data () {
     return {
       columnEditDialog: false,
+      pagination: {
+        rowsPerPage: 0
+      },
       columnEditObject: {
         name: null,
         label: '',
@@ -113,7 +117,10 @@ export default {
   },
   methods: {
     onRowNumChanged () {
-      console.log(tableId)
+      if (this.table.rows < 0) {
+        this.table.rows = null
+      }
+      this.generateTable()
     },
     copyTable () {
       this.$emit('ontablecopy', this.table.id)
@@ -207,6 +214,33 @@ export default {
       colToEdit.index = this.columnEditObject.index
       colToEdit.field = this.columnEditObject.field
       colToEdit.align = this.columnEditObject.align
+    },
+    generateValue (mid, spread, step) {
+      let randint = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
+      if (!mid || !spread || !step) {
+        return 0
+      }
+      const min = mid - spread
+      const max = mid + spread
+      let res = randint(0, (max - min) / step) * step + min
+      return res.toFixed(1)
+    },
+    generateTable () {
+      let result = []
+      for (let i = 0; i < this.table.rows; i++) {
+        let newRow = {}
+        this.table.columns.forEach(col => {
+          if (typeof col.index === 'undefined') {
+            return
+          }
+          newRow[col.index] = this.generateValue(col.mid, col.spread, col.step)
+        })
+        newRow['name'] = i + 1
+        result.push(newRow)
+      }
+      this.table.data = result
     }
   }
 }
