@@ -10,7 +10,7 @@
             <q-tooltip :delay="300" content-style="font-size: 12px">Сохранить в Excel</q-tooltip>
           </q-btn>
         </q-toolbar>
-        <report-table v-for="tab in refTables" :key="tab.id" :table="tab"
+        <report-table v-for="tab in tables" :key="tab.id" :table="tab"
                       @ontabledelete="onTableDelete"
                       @ontablecopy="onTableCopy"/>
       </div>
@@ -24,7 +24,7 @@ import ReportTable from '../components/ReportTable.vue'
 export default {
   data () {
     return {
-      refTables: [
+      tables: [
         {
           id: 1,
           rows: null,
@@ -100,11 +100,11 @@ export default {
   },
   methods: {
     onTableDelete (tableId) {
-      let index = this.refTables.findIndex(tab => tab.id === tableId)
-      this.refTables.splice(index, 1)
+      let index = this.tables.findIndex(tab => tab.id === tableId)
+      this.tables.splice(index, 1)
     },
     onTableCopy (tableId) {
-      let tableToCopy = this.refTables.find(tab => tab.id === tableId)
+      let tableToCopy = this.tables.find(tab => tab.id === tableId)
 
       let columns = []
       tableToCopy.columns.forEach(col => {
@@ -131,7 +131,7 @@ export default {
         data: []
       }))
 
-      let [lastTable] = this.refTables.slice(-1)
+      let [lastTable] = this.tables.slice(-1)
       if (!lastTable) {
         lastTable = {
           id: 1
@@ -139,7 +139,7 @@ export default {
       }
 
       newTable.id = lastTable.id + 1
-      this.refTables.push(newTable)
+      this.tables.push(newTable)
     },
     generateValue (mid, spread, step) {
       let randint = (min, max) => {
@@ -175,8 +175,8 @@ export default {
       table.rows = rows
     },
     addTable () {
-      let newId = this.refTables.length ? this.refTables[this.refTables.length - 1].id + 1 : 0
-      this.refTables.push({
+      let newId = this.tables.length ? this.tables[this.tables.length - 1].id + 1 : 0
+      this.tables.push({
         id: newId,
         rows: null,
         header: '',
