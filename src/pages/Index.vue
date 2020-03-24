@@ -146,22 +146,27 @@ export default {
       })
     },
     async exportExcel () {
-      let cols = []
-      this.columns.forEach(col => {
-        let colData = {
-          label: col.label,
-          condition: col.condition,
-          norms: col.norms,
-          index: col.colIndex
-        }
-        cols.push(colData)
-      })
-
       let tables = []
       this.tables.forEach(table => {
+        let cols = []
+        table.columns.forEach(col => {
+          let column = {
+            name: col.name,
+            label: col.label,
+            condition: col.condition,
+            norms: col.norms,
+            index: col.index,
+            mid: col.mid,
+            spread: col.spread,
+            step: col.step
+          }
+          cols.push(column)
+        })
+
         let tableData = {
+          rows: table.rows,
           header: table.header,
-          data: table.data
+          columns: table.columns
         }
         tables.push(tableData)
       })
@@ -174,7 +179,6 @@ export default {
           'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
-          cols: cols,
           tables: tables
         })
       })
