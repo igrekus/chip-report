@@ -229,7 +229,7 @@ export default {
     },
     generateTable () {
       let result = []
-      for (let i = 0; i < this.table.rows; i++) {
+      for (let i = 0; i < 1; i++) {
         let newRow = {}
         this.table.columns.forEach(col => {
           if (typeof col.index === 'undefined') {
