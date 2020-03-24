@@ -3,7 +3,7 @@ import random
 
 import openpyxl
 
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS, cross_origin
 from openpyxl.styles import Alignment
 
@@ -15,7 +15,27 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/')
 @cross_origin()
 def hello():
-    return 'server ok'
+    return send_file('index.html', as_attachment=False)
+
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('css', path)
+
+
+@app.route('/fonts/<path:path>')
+def send_fonts(path):
+    return send_from_directory('fonts', path)
+
+
+@app.route('/statics/<path:path>')
+def send_statics(path):
+    return send_from_directory('statics', path)
 
 
 @app.route('/api', methods=('GET', 'POST'))
