@@ -6,27 +6,28 @@
       :columns="table.columns"
       row-key="name"
       hide-bottom
+      :pagination="pagination"
     >
       <template v-slot:top>
         <q-item>
           <q-input v-model.number="table.rows" type="number" dense label="Количество строк"
-                   @input="onRowNumChanged(table.id)"/>&nbsp;&nbsp;&nbsp;
+                   @input="onRowNumChanged"></q-input>
         </q-item>
         <q-item>
           <q-input v-model="table.header" dense label="Заголовок:"></q-input>
         </q-item>
         <q-item>
-          <q-btn @click="onAddColumnClicked(table.id)" round dense icon="add">
+          <q-btn @click="onAddColumnClicked" round dense icon="add">
             <q-tooltip :delay="300" content-style="font-size: 12px">Добавить колонку к таблице</q-tooltip>
           </q-btn>
         </q-item>
         <q-item>
-          <q-btn @click="copyTable(table.id)" round dense icon="file_copy">
+          <q-btn @click="copyTable()" round dense icon="file_copy">
             <q-tooltip :delay="300" content-style="font-size: 12px">Добавить копию таблицы</q-tooltip>
           </q-btn>
         </q-item>
         <q-item class="absolute-right">
-          <q-btn @click="deleteTable(table.id)" round dense icon="delete">
+          <q-btn @click="deleteTable" round dense icon="delete">
             <q-tooltip :delay="300" content-style="font-size: 12px">Удалить таблицу</q-tooltip>
           </q-btn>
         </q-item>
@@ -97,6 +98,9 @@ export default {
   data () {
     return {
       columnEditDialog: false,
+      pagination: {
+        rowsPerPage: 0
+      },
       columnEditObject: {
         name: null,
         label: '',
@@ -112,17 +116,19 @@ export default {
     }
   },
   methods: {
-    onRowNumChanged (tableId) {
-      console.log(tableId)
+    onRowNumChanged () {
+      if (this.table.rows < 0) {
+        this.table.rows = null
+      }
+      this.generateTable()
     },
-    copyTable (tableId) {
-      console.log('copy', tableId)
+    copyTable () {
+      this.$emit('ontablecopy', this.table.id)
     },
-    deleteTable (tableId) {
-      console.log('delete', tableId)
+    deleteTable () {
+      this.$emit('ontabledelete', this.table.id)
     },
-    onAddColumnClicked (tableId) {
-      console.log('add column to', tableId)
+    onAddColumnClicked () {
       this.columnEditObject = {
         name: null,
         label: '',
@@ -159,16 +165,13 @@ export default {
       this.columnEditDialog = false
       let index = this.table.columns.findIndex(el => this.columnEditObject.name === el.name)
       if (index === -1) {
-        this.addColumn(this.table.id)
-        return
+        this.addColumn()
+      } else {
+        this.editColumn(index)
       }
-
-      this.editColumn(index)
+      this.generateTable()
     },
-    addColumn (tableId) {
-      console.log('run add column to', tableId)
-      console.log(this.table.columns)
-
+    addColumn () {
       let newColumn = {
         label: this.columnEditObject.label,
         condition: this.columnEditObject.condition,
@@ -182,7 +185,14 @@ export default {
         field: this.columnEditObject.field
       }
 
-      const [lastItem] = this.table.columns.slice(-1)
+      let [lastItem] = this.table.columns.slice(-1)
+
+      if (!lastItem) {
+        lastItem = {
+          name: 0
+        }
+      }
+
       const [index] = [lastItem.name]
       newColumn.name = lastItem.name + 1
       newColumn.index = index
@@ -204,6 +214,33 @@ export default {
       colToEdit.index = this.columnEditObject.index
       colToEdit.field = this.columnEditObject.field
       colToEdit.align = this.columnEditObject.align
+    },
+    generateValue (mid, spread, step) {
+      let randint = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
+      if (!mid || !spread || !step) {
+        return 0
+      }
+      const min = mid - spread
+      const max = mid + spread
+      let res = randint(0, (max - min) / step) * step + min
+      return res.toFixed(1)
+    },
+    generateTable () {
+      let result = []
+      for (let i = 0; i < 1; i++) {
+        let newRow = {}
+        this.table.columns.forEach(col => {
+          if (typeof col.index === 'undefined') {
+            return
+          }
+          newRow[col.index] = this.generateValue(col.mid, col.spread, col.step)
+        })
+        newRow['name'] = i + 1
+        result.push(newRow)
+      }
+      this.table.data = result
     }
   }
 }
