@@ -166,10 +166,10 @@ export default {
       let index = this.table.columns.findIndex(el => this.columnEditObject.name === el.name)
       if (index === -1) {
         this.addColumn()
-        return
+      } else {
+        this.editColumn(index)
       }
-
-      this.editColumn(index)
+      this.generateTable()
     },
     addColumn () {
       let newColumn = {
