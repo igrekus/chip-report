@@ -55,10 +55,7 @@ export default {
               align: 'center'
             }
           ],
-          data: [
-            [1, 2, 3],
-            [1, 2, 3]
-          ]
+          data: []
         },
         {
           id: 2,
@@ -90,10 +87,7 @@ export default {
               align: 'center'
             }
           ],
-          data: [
-            [3, 4, 5],
-            [3, 4, 5]
-          ]
+          data: []
         }
       ]
     }
