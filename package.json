@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "dot-prop": "5.1.1",
     "kind-of": "6.0.3",
     "lodash": "4.17.19",
